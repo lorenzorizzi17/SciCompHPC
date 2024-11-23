@@ -6,15 +6,11 @@
 #
 
 #  define compiler, linker, and optimization flags plus library refs
-<<<<<<< HEAD
 CC          = gcc-13
-=======
-CC          = gcc
->>>>>>> upstream/main
 CLINKER     = $(CC)
 LIBS        = -lm
 CFLAGS      = -fopenmp
-OPTFLAGS    = -std=c11 -fopenmp -O0 
+OPTFLAGS    = -std=c11 -fopenmp -O3
 
 # All the executables supported by this makefile
 EXES = hello pi mandel mm_testbed jac_solv pi_mc linked hist 

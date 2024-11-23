@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "mm_utils.h": "c"
+        "mm_utils.h": "c",
+        "immintrin.h": "c"
     }
 }

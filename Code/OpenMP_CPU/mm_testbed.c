@@ -14,7 +14,7 @@
 **           matrix where we modify matrix elements by a progression
 **           of matrix index values.
 **
-**  USAGE:   Run wtihout arguments to use default SIZE set in the
+**  USAGE:   Run without arguments to use default SIZE set in the
 **           mm_utils.h include file ... for example  
 **              mm_testbed
 **
@@ -33,13 +33,13 @@
 #define SIZE 300
 #define NTRIALS 5
 
+
 //#define DEBUG    1
 
 //  matrix multiplication test cases
 void mm_ijk (int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C);
 void mm_opt (int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C);
 
-void mm_ijk_opt (int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C);
 
 int main(int argc, char **argv)
 {
@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 
    printf("\n==================================================\n");
    printf(" triple loop, ijk case %d %d %d\n", Ndim, Mdim, Pdim);
-   mm_tst_cases(NTRIALS, Ndim, Mdim, Pdim, A, B, C, &mm_ijk_opt);
+   mm_tst_cases(NTRIALS, Ndim, Mdim, Pdim, A, B, C, &mm_ijk);
 
    printf("\n==================================================\n");
    printf(" Optimized MatMul case %d %d %d\n", Ndim, Mdim, Pdim);
