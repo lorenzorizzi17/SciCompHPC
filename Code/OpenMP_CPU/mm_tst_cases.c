@@ -33,7 +33,6 @@ void mm_tst_cases(int NTRIALS, int Ndim, int Mdim, int Pdim,
 
       mm_clear(Ndim, Mdim, C);
       start_time = omp_get_wtime(); 
-
       mm_func(Ndim, Mdim, Pdim, A, B, C);
 
       run_time = omp_get_wtime() - start_time;

@@ -1,0 +1,5 @@
+I create the program to compute pi in in a parallel multicore approach with OpenMP (g++ -fopenmp -O3). The executable is called pi_multithreaded and accepts as input an int which is the number of threads (dynamically decided). The program outputs the execution time. To collect a good statistics, from the shell I execute:
+
+for i in {1..5000}; do echo $(./pi_multithreaded 8) >> "data_THR8.txt"; done
+
+The execution times are thus written into a file that will be analyzed by ROOT (insert histogram). Trimodal distribution? How can I benchmark?
