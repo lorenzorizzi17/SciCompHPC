@@ -30,13 +30,14 @@
 */
 #include <stdlib.h>
 #include "mm_utils.h"
-#define SIZE 400
+#define SIZE 300
 #define NTRIALS 5
 
 //#define DEBUG    1
 
 //  matrix multiplication test cases
 void mm_ijk (int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C);
+void mm_opt (int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C);
 
 void mm_ijk_opt (int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C);
 
@@ -71,5 +72,9 @@ int main(int argc, char **argv)
    printf("\n==================================================\n");
    printf(" triple loop, ijk case %d %d %d\n", Ndim, Mdim, Pdim);
    mm_tst_cases(NTRIALS, Ndim, Mdim, Pdim, A, B, C, &mm_ijk_opt);
+
+   printf("\n==================================================\n");
+   printf(" Optimized MatMul case %d %d %d\n", Ndim, Mdim, Pdim);
+   mm_tst_cases(NTRIALS, Ndim, Mdim, Pdim, A, B, C, &mm_opt);
 
 }
