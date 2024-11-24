@@ -39,6 +39,7 @@
 //  matrix multiplication test cases
 void mm_ijk (int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C);
 void mm_opt (int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C);
+void mm_opt2(int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C);
 
 
 int main(int argc, char **argv)
