@@ -43,7 +43,7 @@ void mm_opt(int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C){
       }
    }
 
-   omp_set_num_threads(8);
+   omp_set_num_threads(16);
    int nthreads;
 
    #pragma omp parallel
@@ -57,11 +57,12 @@ void mm_opt(int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C){
       // I tried grouping together rows of Bt in 18 different groups for thread,
       // so that every group is about 200 kB (L1 cache). 
       // This way, for every i, there should be enough data to be stored in L1 cache 
+      // I'm not really sure this makes a noticeable difference, though
       for(int w = 0; w < DIV_B; w++){
          //i cycle
          for (int i=id; i < Ndim; i += nthreads){         
             // j cycle
-               for (int j = w*50; j < (w+1)*50; j++){
+               for (int j = w*(Mdim/DIV_B); j < (w+1)*(Mdim/DIV_B); j++){
                   TYPE tmp = 0; 
                      // Vectorization using 512-bit registers?
                      // Something like AVX512, I'm not sure whether my computer have those 
@@ -84,44 +85,3 @@ void mm_opt(int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C){
    }
 }
 
-
-void mm_opt2(int Ndim, int Mdim, int Pdim, TYPE *A, TYPE *B, TYPE *C){ 
-   //Calculate tile_size (page size)
-   int tile_size_i = sqrt(Mdim*MAX_PAGE / (double)(Pdim*sizeof(TYPE)));
-   int tile_size_j = sqrt(Pdim*MAX_PAGE / (double)(Mdim*sizeof(TYPE)));
-   
-   //Effectively transpose B using tiles
-   TYPE* Bt = (TYPE*) malloc(Pdim*Mdim*sizeof(TYPE));
-
-   for (int i=0; i<Pdim; i+=tile_size_i) {
-      for (int j=0; j<Mdim; j+=tile_size_j) {
-         for (int it=i; it< MIN(Pdim,i+tile_size_i); it++){
-            for (int jt=j; jt< MIN(Mdim,j+tile_size_j);jt++){
-               *(Bt+it+Pdim*jt) = *(B+jt+Mdim*it);
-            }
-         }
-      }
-   }
-
-
-   #pragma omp parallel for
-      for(int n = 0; n < Ndim*Mdim; n++){
-         int i = n/Mdim;
-         int j = n-i*Mdim;
-         TYPE tmp = 0.0;
-         for(int k=0;k<Pdim; k=k+8){
-               TYPE tmp1 = *(A+(i*Pdim+k+0)) *  *(Bt+(j*Pdim+k+0));  
-               TYPE tmp2 = *(A+(i*Pdim+k+1)) *  *(Bt+(j*Pdim+k+1));
-               TYPE tmp3 = *(A+(i*Pdim+k+2)) *  *(Bt+(j*Pdim+k+2));   
-               TYPE tmp4 = *(A+(i*Pdim+k+3)) *  *(Bt+(j*Pdim+k+3));
-               TYPE tmp5 = *(A+(i*Pdim+k+4)) *  *(Bt+(j*Pdim+k+4));  
-               TYPE tmp6 = *(A+(i*Pdim+k+5)) *  *(Bt+(j*Pdim+k+5));
-               TYPE tmp7 = *(A+(i*Pdim+k+6)) *  *(Bt+(j*Pdim+k+6));  
-               TYPE tmp8 = *(A+(i*Pdim+k+7)) *  *(Bt+(j*Pdim+k+7)); 
-               tmp += tmp1+tmp2+tmp3+tmp4+tmp5+tmp6+tmp7+tmp8;
-         }
-         *(C+(i*Mdim+j)) += tmp;
-      }
-
-   
-}

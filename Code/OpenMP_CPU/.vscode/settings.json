@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "mm_utils.h": "c",
-        "immintrin.h": "c"
+        "immintrin.h": "c",
+        "omp.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c"
     }
 }

@@ -13,10 +13,10 @@ CFLAGS      = -fopenmp
 OPTFLAGS    = -std=c11 -fopenmp -O3
 
 # All the executables supported by this makefile
-EXES = hello pi mandel mm_testbed jac_solv pi_mc linked hist 
+EXES = hello pi mandel mm_testbed jac_solv pi_mc linked hist linked_opt1 linked_opt2
 
 # Lists of object files needed to build executables listed above
-MM_OBJS  = mm_testbed.o mm_utils.o mm_tst_cases.o mm_ijk.o mm_opt.o 
+MM_OBJS  = mm_testbed.o mm_utils.o mm_tst_cases.o mm_ijk.o mm_opt.o
 
 JAC_OBJS = jac_solv.o mm_utils.o 
 
@@ -34,6 +34,12 @@ mm_testbed: $(MM_OBJS) mm_utils.h
 
 linked: linked.o 
 	$(CLINKER) $(OPTFLAGS) -o linked linked.o $(LIBS)
+
+linked_opt1: linked_opt1.o 
+	$(CLINKER) $(OPTFLAGS) -o linked_opt1 linked_opt1.o $(LIBS)
+
+linked_opt2: linked_opt2.o 
+	$(CLINKER) $(OPTFLAGS) -o linked_opt2 linked_opt2.o $(LIBS)
 
 hello$(EXE): hello.o 
 	$(CLINKER) $(OPTFLAGS) -o hello hello.o $(LIBS)
@@ -57,6 +63,7 @@ test: $(EXES)
 	./mandel 
 	./mm_testbed 
 	./linked 
+	./linked_opt
 	./hist 
 	./jac_solv 
 

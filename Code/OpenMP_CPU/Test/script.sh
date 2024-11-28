@@ -1,13 +1,13 @@
 #!/bin/bash
 
 
-TEST_PER_THREAD=200
+TEST_PER_THREAD=100
 
-for i in {10..1}; do
+for i in {1..10}; do
 	rm time_${i}.txt
 	for (( j=1; j<=$TEST_PER_THREAD; j++ )); do
 		result=$(./pi_multithreaded $i)
-		echo "$j $result" >> "time_${i}.txt" 
+		echo "$j $result" >> "time_${i}.txt"
 	done
 	echo -n "$i ";
 done

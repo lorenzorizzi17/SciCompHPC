@@ -1,0 +1,6 @@
+# Lesson 5 I guess
+
+static: put the variable in the shared memory region. Every thread can now see this varibale
+
+
+Construct: just the portion of code between the directives. The region, instead, it's the construct plus all the functions called in the construct, for example. The private clause only impact the construct and not the whole region

@@ -81,15 +81,16 @@ int main(int argc, char *argv[]) {
    struct node *temp=NULL;
    struct node *head=NULL;
      
-   printf("Process linked list of length %d\n",N);
-   printf("Each node will be processed by function 'processwork()'\n");
-   printf("We will compute fibonacci numbers starting at %d\n",FS);
+   //printf("Process linked list of length %d\n",N);
+   //printf("Each node will be processed by function 'processwork()'\n");
+   //printf("We will compute fibonacci numbers starting at %d\n",FS);
  
    p = init_list(p);
    head = p;
 
    // traverse the list process work for each node
    start = omp_get_wtime();
+   //dont try to parallelize th function itself, parallelize this instead
    while (p != NULL) {
       processwork(p);
       p = p->next;
@@ -99,13 +100,13 @@ int main(int argc, char *argv[]) {
    // traverse the list releasing memory allocated for the list
    p = head;
    while (p != NULL) {
-      printf("%d : %d\n",p->data, p->fibdata);
+      //printf("%d : %d\n",p->data, p->fibdata);
       temp = p->next;
       free (p);
       p = temp;
    }  
    free (p);
-   printf("Compute Time: %f seconds\n", end - start);
+   printf("%f", end - start);
    return 0;
 }
 

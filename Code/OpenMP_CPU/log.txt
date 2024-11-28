@@ -1,0 +1,22 @@
+==================================================
+ triple loop, ijk case 300 900 600
+
+ constant matrices  300 900 600
+ mult: ave=0.443763, min=0.443184, max=0.444718 secs
+ mult: ave=730.119147, min=728.551619, max=731.073934 Mflops
+
+ progression matrices  300 900 600
+ mult: ave=0.443974, min=0.443178, max=0.445245 secs
+ mult: ave=729.772929, min=727.689142, max=731.082804 Mflops
+
+==================================================
+ Optimized MatMul case 300 900 600
+
+ constant matrices  300 900 600
+ mult: ave=0.038736, min=0.038138, max=0.039532 secs
+ mult: ave=8364.390997, min=8195.881777, max=8495.397684 Mflops
+
+ progression matrices  300 900 600
+ mult: ave=0.038675, min=0.038394, max=0.039639 secs
+ mult: ave=8377.568533, min=8173.686808, max=8438.852414 Mflops
+
